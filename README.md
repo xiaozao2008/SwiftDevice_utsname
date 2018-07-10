@@ -3,6 +3,14 @@ iOS设备具体型号
 
 欢迎各位补充型号.
 
+      var systemInfo = utsname()
+      uname(&systemInfo)
+      let machineMirror = Mirror(reflecting: systemInfo.machine)
+      let identifier = machineMirror.children.reduce("") { (identifier, elementin) -> String in
+        guard let value = elementin.value as? Int8, value != 0 else { return identifier }
+        return identifier + String(UnicodeScalar(UInt8(value)))
+      }
+      print(identifier)
 
       switch identifier {
         case"iPod5,1":                               return .iPodTouch5
